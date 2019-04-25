@@ -12,6 +12,7 @@
   tasks:
     - name: Delete a resource group
       azure_rm_deployment:
+        deployment_name: Delete-a-resource-group
         subscription_id: "{{ hostSubscriptionId }}"
         client_id: "{{ servicePrincipalId }}"
         tenant: "{{ tenantid }}"
