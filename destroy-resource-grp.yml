@@ -6,7 +6,6 @@
       servicePrincipalId: "{{ ansible_env.servicePrincipalId }}"
       spkey: "{{ ansible_env.spkey }}"
       hostSubscriptionId: "{{ ansible_env.hostSubscriptionId }}"
-      tenant: "{{ ansible_env.tenant }}"
       tenantid: "{{ ansible_env.tenantid }}"
       resourcesgpname: "{{ ansible_env.resourcesgpname }}"
       location: "{{ ansible_env.location }}"
@@ -20,4 +19,3 @@
         name: "{{ resourcesgpname }}"
         location: "{{ location }}"
         state: absent
-        
