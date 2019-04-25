@@ -8,7 +8,6 @@
       hostSubscriptionId: "{{ ansible_env.hostSubscriptionId }}"
       tenantid: "{{ ansible_env.tenantid }}"
       resourcesgpname: "{{ ansible_env.resourcesgpname }}"
-      location: "{{ ansible_env.location }}"
   tasks:
     - name: Delete a resource group
       azure_rm_resourcegroup:
@@ -17,5 +16,4 @@
         tenant: "{{ tenantid }}"
         secret: "{{ spkey }}"
         name: "{{ resourcesgpname }}"
-        location: "{{ location }}"
         state: absent
