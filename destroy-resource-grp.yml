@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+      servicePrincipalId: "{{ ansible_env.servicePrincipalId }}"
+      spkey: "{{ ansible_env.spkey }}"
+      hostSubscriptionId: "{{ ansible_env.hostSubscriptionId }}"
+      tenant: "{{ ansible_env.tenant }}"
+      tenantid: "{{ ansible_env.tenantid }}"
+      resourcesgpname: "{{ ansible_env.resourcesgpname }}"
+      location: "{{ ansible_env.location }}"
+  tasks:
+    - name: Delete a resource group
+      azure_rm_deployment:
+        subscription_id: "{{ hostSubscriptionId }}"
+        client_id: "{{ servicePrincipalId }}"
+        tenant: "{{ tenantid }}"
+        secret: "{{ spkey }}"
+        name: "{{ resourcesgpname }}"
+        location: "{{ location }}"
+        state: absent
+        
