@@ -16,3 +16,5 @@
         tenant: "{{ tenantid }}"
         secret: "{{ spkey }}"
         name: "{{ resourcesgpname }}"
+        state: absent
+        force: yes
