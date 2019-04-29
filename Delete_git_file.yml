@@ -9,6 +9,22 @@
     account_mailid: "{{ ansible_env.account_mailid }}"
     filepath: "{{ ansible_env.filepath }}"
   tasks:   
+    - name: access_token
+      debug:
+        msg: "{{  access_token  }}"
+    - name: account_name
+      debug:
+        msg: "{{  account_name  }}"
+    - name: repo_name
+      debug:
+        msg: "{{  repo_name  }}"
+    - name: account_mailid
+      debug:
+        msg: "{{  account_mailid  }}"
+    - name: var_file_path
+      debug:
+        msg: "{{  filepath  }}"
+
     - name: Get latest commit info 
       uri:
         url: https://api.github.com/repos/{{ account_name }}/{{ repo_name }}/contents/{{ filepath }}
