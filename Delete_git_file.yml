@@ -34,4 +34,4 @@
         method: DELETE
         body: {"message": "my commit message","committer": {"name": "{{ account_name }}","email": "{{ account_mailid }}"},"sha": "{{ shaoutput.json.sha }}"}
         body_format: json
-return_content: yes
+        return_content: yes
