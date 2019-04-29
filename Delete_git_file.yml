@@ -5,6 +5,7 @@
   vars:
     access_token: "{{ ansible_env.access_token }}"
     account_name: "{{ ansible_env.account_name }}"
+    account_mailid: "{{ ansible_env.account_mailid }}"
     repo_name: "{{ ansible_env.repo_name }}"
     var_filename: "{{ ansible_env.filename }}"
   tasks:    
