@@ -18,16 +18,13 @@
         body_format: json
         return_content: yes
       register: shaoutput
-      ignore_errors: yes
 
     - name: debug
       debug:
         msg: "{{  shaoutput  }}"
-        ignore_errors: yes
     - name: sha
       debug:
         msg:  "{{ shaoutput.json.sha }}"
-        ignore_errors: yes
    
     - name: Delete git file
       uri:
@@ -38,4 +35,3 @@
         body: {"message": "my commit message","committer": {"name": "{{ account_name }}","email": "{{ account_mailid }}"},"sha": "{{ shaoutput.json.sha }}"}
         body_format: json
         return_content: yes
-        ignore_errors: yes
