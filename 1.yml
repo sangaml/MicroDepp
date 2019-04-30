@@ -7,7 +7,7 @@
     account_name: "{{ ansible_env.account_name }}"
     repo_name: "{{ ansible_env.repo_name }}"
     account_mailid: "{{ ansible_env.account_mailid }}"
-    var_file_path: "{{ ansible_env.var_file_path }}"
+    filepath: "1.yml"
     servicePrincipalId: "{{ ansible_env.servicePrincipalId }}"
     spkey: "{{ ansible_env.spkey }}"
     hostSubscriptionId: "{{ ansible_env.hostSubscriptionId }}"
