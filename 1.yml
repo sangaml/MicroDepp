@@ -7,12 +7,12 @@
     account_name: "{{ ansible_env.account_name }}"
     repo_name: "{{ ansible_env.repo_name }}"
     account_mailid: "{{ ansible_env.account_mailid }}"
-    filepath: "{{ ansible_env.filepath }}"
+    filepath: "1.yml"
     servicePrincipalId: "{{ ansible_env.servicePrincipalId }}"
     spkey: "{{ ansible_env.spkey }}"
     hostSubscriptionId: "{{ ansible_env.hostSubscriptionId }}"
     tenantid: "{{ ansible_env.tenantid }}"
-    resourcesgpname: "{{ ansible_env.resourcesgpname }}"
+    resourcesgpname: "rg1"
   tasks:
     - name: Delete a resource group
       azure_rm_resourcegroup:
