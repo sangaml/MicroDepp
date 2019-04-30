@@ -22,7 +22,7 @@
         secret: "{{ spkey }}"
         name: "{{ resourcesgpname }}"
         state: absent
-force: yes
+        force: yes
 
     - name: Get latest commit info 
       uri:
