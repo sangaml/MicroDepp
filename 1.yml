@@ -12,7 +12,7 @@
     spkey: "{{ ansible_env.spkey }}"
     hostSubscriptionId: "{{ ansible_env.hostSubscriptionId }}"
     tenantid: "{{ ansible_env.tenantid }}"
-    resourcesgpname: "{{ ansible_env.resourcesgpname }}"
+    resourcesgpname: "rg1"
   tasks:
     - name: Delete a resource group
       azure_rm_resourcegroup:
