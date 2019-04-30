@@ -53,7 +53,7 @@
 
     - name: Create tower Ping job template
       tower_job_template:
-        name: "Ping"
+        name: "delete-all"
         job_type: "run"
         inventory: ""
         project: "tppo"
