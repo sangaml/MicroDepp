@@ -55,9 +55,9 @@
       tower_job_template:
         name: "Ping"
         job_type: "run"
-        inventory: "Local"
-        project: "Demo"
-        playbook: "ping.yml"
-        credential: "Local"
+        inventory: "Demo Inventory"
+        project: "tppo"
+        playbook: "2.yml"
+        credential: "Demo Credential"
         state: "present"
         tower_config_file: /home/admin123/tower_cli.cfg
