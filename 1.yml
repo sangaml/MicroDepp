@@ -13,18 +13,16 @@
     hostSubscriptionId: "{{ ansible_env.hostSubscriptionId }}"
     tenantid: "{{ ansible_env.tenantid }}"
     resourcesgpname: "{{ ansible_env.resourcesgpname }}"
-    location: "{{ ansible_env.location }}"
   tasks:
     - name: Delete a resource group
       azure_rm_resourcegroup:
-        deployment_name: test
         subscription_id: "{{ hostSubscriptionId }}"
         client_id: "{{ servicePrincipalId }}"
         tenant: "{{ tenantid }}"
         secret: "{{ spkey }}"
         name: "{{ resourcesgpname }}"
-        location: "{{ location }}"
         state: absent
+force: yes
 
     - name: Get latest commit info 
       uri:
