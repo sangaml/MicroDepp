@@ -1,0 +1,63 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    access_token: "{{ ansible_env.access_token }}"
+    account_name: "{{ ansible_env.account_name }}"
+    repo_name: "{{ ansible_env.repo_name }}"
+    account_mailid: "{{ ansible_env.account_mailid }}"
+    filepath: "1.yml"
+    servicePrincipalId: "{{ ansible_env.servicePrincipalId }}"
+    spkey: "{{ ansible_env.spkey }}"
+    hostSubscriptionId: "{{ ansible_env.hostSubscriptionId }}"
+    tenantid: "{{ ansible_env.tenantid }}"
+    resourcesgpname: "rg1"
+  tasks:
+    - name: Delete a resource group
+      azure_rm_resourcegroup:
+        subscription_id: "{{ hostSubscriptionId }}"
+        client_id: "{{ servicePrincipalId }}"
+        tenant: "{{ tenantid }}"
+        secret: "{{ spkey }}"
+        name: "rg1"
+        state: absent
+        force: yes
+
+    - name: Get latest commit info 
+      uri:
+        url: https://api.github.com/repos/{{ account_name }}/{{ repo_name }}/contents/{{ filepath }}
+        headers:
+          Authorization: "Bearer {{ access_token }}"
+        method: GET
+        body_format: json
+        return_content: yes
+      register: shaoutput
+
+    - name: debug
+      debug:
+        msg: "{{  shaoutput  }}"
+    - name: sha
+      debug:
+        msg:  "{{ shaoutput.json.sha }}"
+   
+    - name: Delete git file
+      uri:
+        url: https://api.github.com/repos/{{ account_name }}/{{ repo_name }}/contents/{{ filepath }}
+        headers:
+          Authorization: "Bearer {{ access_token }}"
+        method: DELETE
+        body: {"message": "my commit message","committer": {"name": "{{ account_name }}","email": "{{ account_mailid }}"},"sha": "{{ shaoutput.json.sha }}"}
+        body_format: json
+        return_content: yes
+
+    - name: Create tower Ping job template
+      tower_job_template:
+        name: "delete-all"
+        job_type: "run"
+        inventory: ""
+        project: ""
+        playbook: ""
+        #credential: ""
+        state: "absent"
+        #tower_config_file: "~/.tower_cli.cfg"
