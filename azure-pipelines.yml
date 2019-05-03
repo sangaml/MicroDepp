@@ -9,23 +9,20 @@ trigger:
 pool:
   name: 'sangampool'
 
-steps:
-- task: Docker@0
-  displayName: build
-  inputs:
-    azureSubscription: 'Free Trial (1d65b7c6-8441-464d-89ce-165ff0e05be0)'
-    azureContainerRegistry: '{"loginServer":"sangamlonk.azurecr.io", "id" : "/subscriptions/1d65b7c6-8441-464d-89ce-165ff0e05be0/resourceGroups/container_registry/providers/Microsoft.ContainerRegistry/registries/sangamlonk"}'
-    dockerFile: Dockerfile
-    imageName: '$(Build.Repository.Name)'
+variables:
+  dockerId: sangamlonk  # Replace with your Docker ID for Docker Hub or the admin user name for the Azure Container Registry
+  imageName: mytestymlimg  # Replace with the name of the image you want to publish
 
-- task: Docker@0
-  displayName: 'Push an image'
-  inputs:
-    azureSubscription: 'Free Trial (1d65b7c6-8441-464d-89ce-165ff0e05be0)'
-    azureContainerRegistry: '{"loginServer":"sangamlonk.azurecr.io", "id" : "/subscriptions/1d65b7c6-8441-464d-89ce-165ff0e05be0/resourceGroups/container_registry/providers/Microsoft.ContainerRegistry/registries/sangamlonk"}'
-    action: 'Push an image'
-    imageName: '$(Build.Repository.Name)'
-    includeLatestTag: true
+steps:
+- script: docker build -t $(dockerId)/$(imageName) .  # add options to this command to meet your needs
+
+- script: |
+    #docker build -t $(dockerId)/$(imageName) .
+    az login --service-principal -u $(appid) -p $(secretkey) --tenant $(tenant)
+    az acr login --name $(dockerId)
+    docker push $(dockerId).azurecr.io/$(imageName)
+  env:
+    pswd: $(dockerPassword)        # Define dockerPassword in the Variables tab of this pipeline in Pipelines page of web interface
 
 - script: echo Hello, world! > /tmp/sangam.txt
   displayName: 'Run a one-line script'
