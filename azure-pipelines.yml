@@ -11,7 +11,7 @@ pool:
 
 variables:
   dockerId: sangamlonk  # Replace with your Docker ID for Docker Hub or the admin user name for the Azure Container Registry
-  imageName: mytestymlimg  # Replace with the name of the image you want to publish
+  imageName: mytestymlimg1  # Replace with the name of the image you want to publish
 
 steps:
 - script: docker build -t $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER .  # add options to this command to meet your needs
