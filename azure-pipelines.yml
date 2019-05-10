@@ -21,7 +21,7 @@ steps:
     az login --service-principal -u $(appid) -p $(secretkey) --tenant $(tenant)
     az acr login --name $(dockerId)
     sudo docker push $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER
-    #cp Dockerfile $(Build.ArtifactStagingDirectory)/.
+    cp Dockerfile $(Build.ArtifactStagingDirectory)/.
   env:
     pswd: $(dockerPassword)        # Define dockerPassword in the Variables tab of this pipeline in Pipelines page of web interface
 
