@@ -22,9 +22,10 @@ steps:
     az acr login --name $(dockerId)
     docker push $(dockerId).azurecr.io/$(imageName)
     cp Dockerfile $(Build.ArtifactStagingDirectory)/
+    cp deploy_aks_Pod.tf $(Build.ArtifactStagingDirectory)/
+    cp Deploy_image_Openshift.sh $(Build.ArtifactStagingDirectory)/
   env:
     pswd: $(dockerPassword)        # Define dockerPassword in the Variables tab of this pipeline in Pipelines page of web interface
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
-
