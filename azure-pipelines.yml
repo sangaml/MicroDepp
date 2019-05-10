@@ -14,13 +14,13 @@ variables:
   imageName: mytestymlimg1  # Replace with the name of the image you want to publish
 
 steps:
-- script: sudo docker build -t $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER .  # add options to this command to meet your needs
+- script: sudo docker build -t $(dockerId).azurecr.io/$(imageName) .  # add options to this command to meet your needs
 
 - script: |
-    sudo docker build -t $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER .
+    sudo docker build -t $(dockerId).azurecr.io/$(imageName) .
     az login --service-principal -u $(appid) -p $(secretkey) --tenant $(tenant)
     az acr login --name $(dockerId)
-    sudo docker push $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER
+    sudo docker push $(dockerId).azurecr.io/$(imageName)
   env:
     pswd: $(dockerPassword)        # Define dockerPassword in the Variables tab of this pipeline in Pipelines page of web interface
 
