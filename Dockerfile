@@ -1,7 +1,17 @@
-FROM ubuntu
+FROM centos:centos7
 
-RUN apt-get update && apt-get install nginx -y 
+RUN yum install -y epel-release
 
-EXPOSE 8080
+RUN yum install -y nodejs npm
 
-CMD ["nginx", "-g", "daemon off;"]
+WORKDIR ./myapp
+
+COPY employee.txt .
+
+COPY department.txt .
+
+COPY main.js .
+
+EXPOSE 8081
+
+CMD ["node","main.js"]
