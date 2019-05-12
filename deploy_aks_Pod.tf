@@ -43,8 +43,16 @@ resource "local_file" "kubeconfig" {
   content  = "${azurerm_kubernetes_cluster.myAKSCluster.kube_config_raw}"
   filename = "${path.module}/kubeconfig"
 }
+variable "client_id" {
+}
+variable "client_secret" {
+}
+variable "subscription_id" {
+}
+variable "tenant_id" {
+}
 variable "nameregion" {
-  default = "West US"
+  default = "East US"
 }
 variable "nameenvironment" {
   default = "Dev"
@@ -53,10 +61,10 @@ variable "project" {
   default = "TPPO"
 }
 variable "resource_group_location" {
-  default = "West US"
+  default = "East US"
 }
 variable "resource_group_name" {
-  default = "AvniRG"
+  default = "sangamtf"
 }
 variable "aks_k8s_version" {
   default = "1.12.7"
@@ -92,7 +100,6 @@ spec:
   ports:
     - name: my-nodeja-port
       port: 8080
-
 YAML
 
 filename = "${path.module}/deploy.yml"
