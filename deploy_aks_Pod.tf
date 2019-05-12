@@ -51,9 +51,6 @@ variable "subscription_id" {
 }
 variable "tenant_id" {
 }
-variable "nameregion" {
-  default = "East US"
-}
 variable "nameenvironment" {
   default = "Dev"
 }
@@ -61,10 +58,8 @@ variable "project" {
   default = "TPPO"
 }
 variable "resource_group_location" {
-  default = "East US"
 }
 variable "resource_group_name" {
-  default = "sangamtf"
 }
 variable "aks_k8s_version" {
   default = "1.12.7"
