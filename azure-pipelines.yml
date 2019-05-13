@@ -22,7 +22,8 @@ steps:
     az acr login --name $(dockerId)
     docker push $(dockerId).azurecr.io/$(imageName)
     cp Dockerfile $(Build.ArtifactStagingDirectory)/
-    cp deploy_aks_Pod.tf $(Build.ArtifactStagingDirectory)/
+    mkdir $(Build.ArtifactStagingDirectory)/terraform
+    cp deploy_aks_Pod.tf $(Build.ArtifactStagingDirectory)/terraform
     cp Deploy_image_Openshift.sh $(Build.ArtifactStagingDirectory)/
   env:
     pswd: $(dockerPassword)        # Define dockerPassword in the Variables tab of this pipeline in Pipelines page of web interface
