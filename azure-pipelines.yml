@@ -24,7 +24,7 @@ steps:
     mkdir $(Build.ArtifactStagingDirectory)/terraform
     cp deploy_aks_Pod.tf $(Build.ArtifactStagingDirectory)/terraform
     cp Deploy_image_Openshift.sh $(Build.ArtifactStagingDirectory)/
-  env:
+#  env:
 #    pswd: $(dockerPassword)        # Define dockerPassword in the Variables tab of this pipeline in Pipelines page of web interface
 
 - task: PublishBuildArtifacts@1
