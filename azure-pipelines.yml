@@ -11,23 +11,21 @@ pool:
 
 variables:
   dockerId: sangamlonk  # Replace with your Docker ID for Docker Hub or the admin user name for the Azure Container Registry
-  imageName: mytestymlimg1  # Replace with the name of the image you want to publish
+  imageName: nodejsms  # Replace with the name of the image you want to publish
 
 steps:
-- script: docker build -t $(dockerId).azurecr.io/$(imageName) .  # add options to this command to meet your needs
-
 - script: |
-    docker build -t $(dockerId).azurecr.io/$(imageName) .
+    docker build -t $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER . 
     az login --service-principal -u $(appid) -p $(secretkey) --tenant $(tenant)
     az acr login --name $(dockerId)
     echo "Hello Baba"
-    docker push $(dockerId).azurecr.io/$(imageName)
+    docker push $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER
     cp Dockerfile $(Build.ArtifactStagingDirectory)/
     mkdir $(Build.ArtifactStagingDirectory)/terraform
     cp deploy_aks_Pod.tf $(Build.ArtifactStagingDirectory)/terraform
     cp Deploy_image_Openshift.sh $(Build.ArtifactStagingDirectory)/
   env:
-    pswd: $(dockerPassword)        # Define dockerPassword in the Variables tab of this pipeline in Pipelines page of web interface
+#    pswd: $(dockerPassword)        # Define dockerPassword in the Variables tab of this pipeline in Pipelines page of web interface
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
