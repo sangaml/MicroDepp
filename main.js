@@ -9,7 +9,7 @@ http.createServer(function(request, response) {
     if (request.url == '/') {
         response.end('HelloWorld');
     } else {
-        fs.readFile(path.join(__dirname,'../'+request.url+'.txt'), function(err, data) {
+        fs.readFile(path.join(__dirname,'./'+request.url+'.txt'), function(err, data) {
             console.log(data);
             response.end(data);
         });
