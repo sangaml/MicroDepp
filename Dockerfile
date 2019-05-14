@@ -10,6 +10,8 @@ COPY employee.txt .
 
 COPY department.txt .
 
+COPY version.txt .
+
 COPY main.js .
 
 EXPOSE 8081
