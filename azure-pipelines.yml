@@ -25,9 +25,9 @@ steps:
     mkdir $(Build.ArtifactStagingDirectory)/terraform
     cp deploy_aks_Pod.tf $(Build.ArtifactStagingDirectory)/terraform
     cp Deploy_image_Openshift.sh $(Build.ArtifactStagingDirectory)/
-    echo $ostoken
-    envsubst "$ostoken" <devdeploy.sh  >$(Build.ArtifactStagingDirectory)/devdeploy.sh
-#    cp devdeploy.sh $(Build.ArtifactStagingDirectory)/
+    echo $(ostoken)
+    envsubst "$(ostoken)" <devdeploy.sh >devdeploy2.sh   
+    cp devdeploy2.sh $(Build.ArtifactStagingDirectory)/devdeploy.sh
     
     
 #  env:
