@@ -14,6 +14,6 @@ COPY version.txt .
 
 COPY main.js .
 
-EXPOSE 8081
+EXPOSE 3000
 
 CMD ["node","main.js"]
