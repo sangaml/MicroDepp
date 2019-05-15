@@ -24,7 +24,6 @@ steps:
     cp Dockerfile $(Build.ArtifactStagingDirectory)/
     mkdir $(Build.ArtifactStagingDirectory)/terraform
     cp deploy_aks.tf $(Build.ArtifactStagingDirectory)/terraform
-    cp Deploy_image_Openshift.sh $(Build.ArtifactStagingDirectory)/
   #  echo $(ostoken)
   #  envsubst \$(ostoken) <devdeploy.sh  >devdeploy2.sh 
   #  cat devdeploy2.sh 
