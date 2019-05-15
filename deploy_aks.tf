@@ -96,8 +96,8 @@ spec:
       containers:
       - name: my-nodejs-container1
 #        image: sangamlonk.azurecr.io/node-docker-demo:latest
-       image: sangamlonk.azurecr.io/nodejsms:${var.imageversion}
-       ports:
+        image: sangamlonk.azurecr.io/nodejsms:${var.imageversion}
+        ports:
         - containerPort: 3000
 
 ---
