@@ -1,10 +1,25 @@
 provider "azurerm" {
   # Whilst version is optional, we /strongly recommend/ using it to pin the version of the Provider being used
   version = "=1.22.0"
-  subscription_id = "${var.subscription_id}"
-  client_id       = "${var.client_id}"
-  client_secret   = "${var.client_secret}"
-  tenant_id       = "${var.tenant_id}"
+  subscription_id = "1d65b7c6-8441-464d-89ce-165ff0e05be0"
+  client_id       = "3f4103d7-e3b7-4c5c-9e02-ef45a842c2a4"
+  client_secret   = "FC0WPeAw7SZmkosj9GK9EBFQCsYwN54LHuk/FCbkrbA="
+  tenant_id       = "c160a942-c869-429f-8a96-f8c8296d57db"
+}
+resource "azurerm_resource_group" "test" {
+  name     = "${var.resource_group_name}"
+  location = "West US"
+}
+
+resource "azurerm_public_ip" "test" {
+  name                = "myAvniPublicIp1"
+  location            = "West US"
+  resource_group_name = "${azurerm_resource_group.test.name}"
+  allocation_method   = "Static"
+
+  tags = {
+    environment = "Production"
+  }
 }
 # Create AKS Cluster
 resource "tls_private_key" "aks-key" {
@@ -13,7 +28,7 @@ resource "tls_private_key" "aks-key" {
 }
 
 resource "azurerm_kubernetes_cluster" "myAKSCluster" {
-  name                = "myAKSCluster"
+  name                = "myAKSCluster2"
   location            = "${var.resource_group_location}"
   resource_group_name = "${var.resource_group_name}"
   dns_prefix          = "tppoCluster-dns"
@@ -35,21 +50,17 @@ resource "azurerm_kubernetes_cluster" "myAKSCluster" {
   }
 
   service_principal {
-    client_id     = "${var.client_id}"
-    client_secret = "${var.client_secret}"
+    client_id     = "3f4103d7-e3b7-4c5c-9e02-ef45a842c2a4"
+    client_secret = "FC0WPeAw7SZmkosj9GK9EBFQCsYwN54LHuk/FCbkrbA="
   }
+  depends_on = ["azurerm_resource_group.test"]
 }
 resource "local_file" "kubeconfig" {
   content  = "${azurerm_kubernetes_cluster.myAKSCluster.kube_config_raw}"
   filename = "${path.module}/kubeconfig"
 }
-variable "client_id" {
-}
-variable "client_secret" {
-}
-variable "subscription_id" {
-}
-variable "tenant_id" {
+variable "nameregion" {
+  default = "West US"
 }
 variable "nameenvironment" {
   default = "Dev"
@@ -58,8 +69,10 @@ variable "project" {
   default = "TPPO"
 }
 variable "resource_group_location" {
+  default = "West US"
 }
 variable "resource_group_name" {
+  default = "AvniRG1"
 }
 variable "aks_k8s_version" {
   default = "1.12.7"
@@ -67,7 +80,7 @@ variable "aks_k8s_version" {
 resource "local_file" "deploy" {
   content = <<YAML
 ---
-apiVersion: v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: my-nodejs-deployment
@@ -76,13 +89,14 @@ spec:
   template:
     metadata:
       labels:
-        app: my-nodeja
+        app: my-nodejs
     spec:
       containers:
       - name: my-nodejs-container1
-        image: sangamlonk.azurecr.io/nodejsapp:latest
+        image: sangamlonk.azurecr.io/node-docker-demo:latest
         ports:
-        - containerPort: 80
+        - containerPort: 3000
+
 ---
 apiVersion: v1
 kind: Service
@@ -93,10 +107,11 @@ spec:
     app: my-nodejs
   type: LoadBalancer
   ports:
-    - name: my-nodeja-port
-      port: 8080
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
 YAML
 
-filename = "${path.module}/deploy.yml"
+filename = "${path.module}/deploy.yaml"
 
 }
