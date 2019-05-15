@@ -1,26 +1,17 @@
 provider "azurerm" {
   # Whilst version is optional, we /strongly recommend/ using it to pin the version of the Provider being used
   version = "=1.22.0"
-  subscription_id = "1d65b7c6-8441-464d-89ce-165ff0e05be0"
-  client_id       = "3f4103d7-e3b7-4c5c-9e02-ef45a842c2a4"
-  client_secret   = "FC0WPeAw7SZmkosj9GK9EBFQCsYwN54LHuk/FCbkrbA="
-  tenant_id       = "c160a942-c869-429f-8a96-f8c8296d57db"
+  subscription_id = "${var.subscription_id}"
+  client_id       = "${var.client_id}"
+  client_secret   = "${var.client_secret}"
+  tenant_id       = "${var.tenant_id}"
 }
+
 resource "azurerm_resource_group" "test" {
   name     = "${var.resource_group_name}"
   location = "West US"
 }
 
-resource "azurerm_public_ip" "test" {
-  name                = "myAvniPublicIp1"
-  location            = "West US"
-  resource_group_name = "${azurerm_resource_group.test.name}"
-  allocation_method   = "Static"
-
-  tags = {
-    environment = "Production"
-  }
-}
 # Create AKS Cluster
 resource "tls_private_key" "aks-key" {
   algorithm   = "RSA"
@@ -28,7 +19,7 @@ resource "tls_private_key" "aks-key" {
 }
 
 resource "azurerm_kubernetes_cluster" "myAKSCluster" {
-  name                = "myAKSCluster2"
+  name                = "myaksCluster"
   location            = "${var.resource_group_location}"
   resource_group_name = "${var.resource_group_name}"
   dns_prefix          = "tppoCluster-dns"
@@ -59,6 +50,15 @@ resource "local_file" "kubeconfig" {
   content  = "${azurerm_kubernetes_cluster.myAKSCluster.kube_config_raw}"
   filename = "${path.module}/kubeconfig"
 }
+
+variable "client_id" {
+}
+variable "client_secret" {
+}
+variable "subscription_id" {
+}
+variable "tenant_id" {
+}
 variable "nameregion" {
   default = "West US"
 }
@@ -72,10 +72,12 @@ variable "resource_group_location" {
   default = "West US"
 }
 variable "resource_group_name" {
-  default = "AvniRG1"
+#  default = "nodejscluster"
 }
 variable "aks_k8s_version" {
   default = "1.12.7"
+}
+variable "imageversion" {
 }
 resource "local_file" "deploy" {
   content = <<YAML
@@ -93,8 +95,9 @@ spec:
     spec:
       containers:
       - name: my-nodejs-container1
-        image: sangamlonk.azurecr.io/node-docker-demo:latest
-        ports:
+#        image: sangamlonk.azurecr.io/node-docker-demo:latest
+       image: sangamlonk.azurecr.io/nodejsms:${var.imageversion}
+       ports:
         - containerPort: 3000
 
 ---
