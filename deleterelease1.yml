@@ -8,6 +8,21 @@
     repo_name: "{{ ansible_env.repo_name }}"
     account_mailid: "{{ ansible_env.account_mailid }}"
     filepath: "{{ ansible_env.filepath }}"
+    servicePrincipalId: "{{ ansible_env.servicePrincipalId }}"
+    spkey: "{{ ansible_env.spkey }}"
+    hostSubscriptionId: "{{ ansible_env.hostSubscriptionId }}"
+    tenantid: "{{ ansible_env.tenantid }}"
+    resourcesgpname: "{{ ansible_env.resourcesgpname }}"    
+  tasks:
+    - name: Delete a resource group
+      azure_rm_resourcegroup:
+        subscription_id: "{{ hostSubscriptionId }}"
+        client_id: "{{ servicePrincipalId }}"
+        tenant: "{{ tenantid }}"
+        secret: "{{ spkey }}"
+        name: "{{ resourcesgpname }}"
+        state: absent
+        force: yes    
   tasks:   
     - name: Get latest commit info 
       uri:
