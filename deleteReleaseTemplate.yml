@@ -23,30 +23,3 @@
         name: "{{ resourcesgpname }}"
         state: absent
         force: yes    
-  tasks:   
-    - name: Get latest commit info 
-      uri:
-        url: https://api.github.com/repos/{{ account_name }}/{{ repo_name }}/contents/{{ filepath }}
-        headers:
-          Authorization: "Bearer {{ access_token }}"
-        method: GET
-        body_format: json
-        return_content: yes
-      register: shaoutput
-
-    - name: debug
-      debug:
-        msg: "{{  shaoutput  }}"
-    - name: sha
-      debug:
-        msg:  "{{ shaoutput.json.sha }}"
-   
-    - name: Delete Release file
-      uri:
-        url: https://api.github.com/repos/{{ account_name }}/{{ repo_name }}/contents/{{ filepath }}
-        headers:
-          Authorization: "Bearer {{ access_token }}"
-        method: DELETE
-        body: {"message": "my commit message","committer": {"name": "{{ account_name }}","email": "{{ account_mailid }}"},"sha": "{{ shaoutput.json.sha }}"}
-        body_format: json
-        return_content: yes
