@@ -11,8 +11,7 @@
     servicePrincipalId: "{{ ansible_env.servicePrincipalId }}"
     spkey: "{{ ansible_env.spkey }}"
     hostSubscriptionId: "{{ ansible_env.hostSubscriptionId }}"
-    tenantid: "{{ ansible_env.tenantid }}"
-#    resourcesgpname: "{{ ansible_env.resourcesgpname }}"    
+    tenantid: "{{ ansible_env.tenantid }}" 
   tasks:
     - name: Delete a resource group
       azure_rm_resourcegroup:
