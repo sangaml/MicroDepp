@@ -11,7 +11,7 @@
     spkey: "{{ ansible_env.spkey }}"
     hostSubscriptionId: "{{ ansible_env.hostSubscriptionId }}"
     tenantid: "{{ ansible_env.tenantid }}"
-    resourcesgpname: "Release-33"
+    resourcesgpname: "Release-007"
     filepath: "deleterelease1.yml"
   tasks:
     - name: Delete a resource group
