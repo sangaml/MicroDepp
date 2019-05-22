@@ -41,8 +41,8 @@ resource "azurerm_kubernetes_cluster" "myAKSCluster" {
   }
 
   service_principal {
-    client_id     = "3f4103d7-e3b7-4c5c-9e02-ef45a842c2a4"
-    client_secret = "FC0WPeAw7SZmkosj9GK9EBFQCsYwN54LHuk/FCbkrbA="
+    client_id     = "${var.client_id}"
+    client_secret = ""
   }
   depends_on = ["azurerm_resource_group.test"]
 }
