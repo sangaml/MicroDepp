@@ -85,34 +85,76 @@ resource "local_file" "deploy" {
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: my-nodejs-deployment
-spec:
+  name: rsvp-db
+  namespace: rsvp 
+spec: 
   replicas: 1
   template:
     metadata:
       labels:
-        app: my-nodejs
-    spec:
+        appdb: rsvpdb
+    spec: 
       containers:
-      - name: my-nodejs-container1
-#        image: sangamlonk.azurecr.io/node-docker-demo:latest
-        image: sangamlonk.azurecr.io/nodejsms:${var.imageversion}
+      - name: rsvpd-db
+        image: microdepp.azurecr.io/mongo
+        env:
+        - name: MONGODB_DATABASE
+          value: rsvpdata
         ports:
-        - containerPort: 3000
-
+- containerPort: 27017
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-nodejsapp-service
+  name: mongodb
+  namespace: rsvp 
+  labels:
+    app: rsvpdb
 spec:
+  ports:
+  - port: 27017
+    protocol: TCP
   selector:
-    app: my-nodejs
+appdb: rsvpdb
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: rsvp
+  namespace: rsvp   
+spec: 
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rsvp
+    spec:
+      containers:
+      - name: rsvp-app
+        image: microdepp.azurecr.io/rsvp
+        env:
+        - name: MONGODB_HOST
+          value: mongodb
+        ports:
+        - containerPort: 5000
+name: web-port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rsvp
+  namespace: rsvp 
+  labels:
+    apps: rsvp
+spec:
   type: LoadBalancer
   ports:
-    - protocol: TCP
-      port: 3000
-      targetPort: 3000
+  - name: tcp-31081-5000
+    nodePort: 31081
+    port: 5000
+    protocol: TCP
+  selector:
+app: rsvp
 YAML
 
 filename = "${path.module}/deploy.yaml"
