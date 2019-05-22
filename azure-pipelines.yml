@@ -20,8 +20,8 @@ steps:
     az acr login --name $(dockerId)
     docker build -t $(dockerId).azurecr.io/$(dbimageName):$BUILD_BUILDNUMBER ./mongo 
     docker push $(dockerId).azurecr.io/$(dbimageName):$BUILD_BUILDNUMBER
-    docker push $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER
     docker build -t $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER ./rsvpapp 
+    docker push $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER
     #cp Dockerfile $(Build.ArtifactStagingDirectory)/
     mkdir $(Build.ArtifactStagingDirectory)/k8s
     cp ./k8s/* $(Build.ArtifactStagingDirectory)/k8s/
