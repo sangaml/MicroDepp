@@ -96,12 +96,12 @@ spec:
     spec: 
       containers:
       - name: rsvpd-db
-        image: microdepp.azurecr.io/mongo
+        image: microdepp.azurecr.io/mongo:${var.imageversion}
         env:
         - name: MONGODB_DATABASE
           value: rsvpdata
         ports:
-- containerPort: 27017
+        - containerPort: 27017
 ---
 apiVersion: v1
 kind: Service
@@ -115,7 +115,7 @@ spec:
   - port: 27017
     protocol: TCP
   selector:
-appdb: rsvpdb
+    appdb: rsvpdb
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -131,13 +131,13 @@ spec:
     spec:
       containers:
       - name: rsvp-app
-        image: microdepp.azurecr.io/rsvp
+        image: microdepp.azurecr.io/rsvp:${var.imageversion}
         env:
         - name: MONGODB_HOST
           value: mongodb
         ports:
         - containerPort: 5000
-name: web-port
+          name: web-port
 ---
 apiVersion: v1
 kind: Service
@@ -154,7 +154,7 @@ spec:
     port: 5000
     protocol: TCP
   selector:
-app: rsvp
+    app: rsvp
 YAML
 
 filename = "${path.module}/deploy.yaml"
