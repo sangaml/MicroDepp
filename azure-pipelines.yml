@@ -20,8 +20,8 @@ steps:
     az login --service-principal -u $(appid) -p $(secretkey) --tenant $(tenant)
     az acr login --name $(dockerId)
     echo "Hello Baba"
-    echo "$(appid)" > baba.txt
-    cat baba.txt
+    echo "$(appid)" >> baba.txt
+    cat ./baba.txt
     docker push $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER
     cp Dockerfile $(Build.ArtifactStagingDirectory)/
     mkdir $(Build.ArtifactStagingDirectory)/terraform
