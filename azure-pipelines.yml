@@ -23,8 +23,8 @@ steps:
     docker build -t $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER ./rsvpapp 
     docker push $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER
     #cp Dockerfile $(Build.ArtifactStagingDirectory)/
-    mkdir $(Build.ArtifactStagingDirectory)/k8s
-    cp ./k8s/* $(Build.ArtifactStagingDirectory)/k8s/
+    mkdir $(Build.ArtifactStagingDirectory)/terraform
+    cp ./terraform/* $(Build.ArtifactStagingDirectory)/terraform/
   displayName: 'Build APP & DB containers and push to $(dockerId).azurecr.io'  
     
 - task: PublishBuildArtifacts@1
