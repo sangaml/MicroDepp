@@ -42,7 +42,7 @@ resource "azurerm_kubernetes_cluster" "myAKSCluster" {
 
   service_principal {
     client_id     = "${var.client_id}"
-    client_secret = ""
+    client_secret = "${var.client_secret}"
   }
   depends_on = ["azurerm_resource_group.test"]
 }
@@ -72,7 +72,6 @@ variable "resource_group_location" {
   default = "West US"
 }
 variable "resource_group_name" {
-#  default = "nodejscluster"
 }
 variable "aks_k8s_version" {
   default = "1.12.7"
