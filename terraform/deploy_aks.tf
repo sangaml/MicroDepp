@@ -150,7 +150,7 @@ spec:
   ports:
   - name: tcp-31081-5000
     nodePort: 31081
-    port: 5000
+    port: 80
     protocol: TCP
   selector:
     app: rsvp
