@@ -13,9 +13,6 @@ variables:
   dockerId: microdepp  # Replace with your Docker ID for Docker Hub or the admin user name for the Azure Container Registry
   imageName: rsvp  # Replace with the name of the image you want to publish
   dbimageName: mongo
-
-parameters:
-
   pojectName: 'microdepp'
   projectKey: 'microdepp'
   language: 'python'
@@ -47,9 +44,9 @@ steps:
       echo "##vso[task.complete result=Failed;]"
     fi
   env:
-    PROJECTNAME: ${{ parameters.pojectName }}
-    PROJECTKEY: ${{ parameters.projectKey }}
-    LANGUAGE: ${{ parameters.language }}
+    PROJECTNAME: $(pojectName)
+    PROJECTKEY: $(projectKey)
+    LANGUAGE: $(language)
   displayName: 'Check for required parameters'
 
 - task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
@@ -57,10 +54,10 @@ steps:
     SonarQube: SonarQube
     scannerMode: CLI
     configMode: manual
-    cliProjectKey: ${{ parameters.projectKey }}
-    cliProjectName: ${{ parameters.pojectName }}
-    cliSources: ${{ parameters.sources }}
-    extraProperties: ${{ parameters.extraProperties }}
+    cliProjectKey: $(projectKey)
+    cliProjectName: $(pojectName)
+    cliSources: $(sources)
+    extraProperties: $(extraProperties)
   displayName: 'Prepare analysis on SonarQube'
   condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/master','refs/heads/develop'))
 
