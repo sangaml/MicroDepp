@@ -23,7 +23,6 @@ variables:
        sonar.language=python
        sonar.junit.reportPaths=target/surefire-reports/
        sonar.exclusions=**/*.bin
-       sonar.java.binaries=target/
 
 steps:
 - script: |
