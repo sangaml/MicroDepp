@@ -7,22 +7,12 @@ trigger:
 - master
 
 pool:
- vmImage: 'ubuntu-16.04'
+  name: 'sangampool'
 
 variables:
   dockerId: microdepp  # Replace with your Docker ID for Docker Hub or the admin user name for the Azure Container Registry
   imageName: rsvp  # Replace with the name of the image you want to publish
   dbimageName: mongo
-  pojectName: 'microdepp'
-  projectKey: 'microdepp'
-  language: 'python'
-
-  sources: 'rsvpapp'
-  extraProperties: |
-       sonar.projectVersion=1.0
-       sonar.language=python
-       sonar.junit.reportPaths=target/surefire-reports/
-       sonar.exclusions=**/*.bin
 
 steps:
 - script: |
@@ -36,38 +26,6 @@ steps:
     mkdir $(Build.ArtifactStagingDirectory)/terraform
     cp ./terraform/* $(Build.ArtifactStagingDirectory)/terraform/
   displayName: 'Build APP & DB containers and push to $(dockerId).azurecr.io'  
-
-- bash: |
-    if [[ -z "$PROJECTNAME" || -z "$PROJECTKEY" || -z "$LANGUAGE" ]]; then
-      echo "##vso[task.logissue type=error;]Missing template parameter"
-      echo "##vso[task.complete result=Failed;]"
-    fi
-  env:
-    PROJECTNAME: $(pojectName)
-    PROJECTKEY: $(projectKey)
-    LANGUAGE: $(language)
-  displayName: 'Check for required parameters'
-
-- task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
-  inputs:
-    SonarQube: SonarQube
-    scannerMode: CLI
-    configMode: manual
-    cliProjectKey: $(projectKey)
-    cliProjectName: $(pojectName)
-    cliSources: $(sources)
-    extraProperties: $(extraProperties)
-  displayName: 'Prepare analysis on SonarQube'
-  condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/master','refs/heads/develop'))
-
-- task: SonarSource.sonarqube.6D01813A-9589-4B15-8491-8164AEB38055.SonarQubeAnalyze@4
-  displayName: 'Run Code Analysis'
-  condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/master','refs/heads/develop'))
-
-- task: SonarSource.sonarqube.291ed61f-1ee4-45d3-b1b0-bf822d9095ef.SonarQubePublish@4
-  displayName: 'Publish Quality Gate Result'
-  condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/master','refs/heads/develop'))
-
     
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
