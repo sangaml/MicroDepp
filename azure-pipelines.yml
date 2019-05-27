@@ -25,7 +25,18 @@ steps:
     #cp Dockerfile $(Build.ArtifactStagingDirectory)/
     mkdir $(Build.ArtifactStagingDirectory)/terraform
     cp ./terraform/* $(Build.ArtifactStagingDirectory)/terraform/
-  displayName: 'Build APP & DB containers and push to $(dockerId).azurecr.io'  
+  displayName: 'Build APP & DB containers and push to $(dockerId).azurecr.io'
+
+- task: dazfuller.pyunittest-task.pyunittest-task.Python Unit Test@0
+  displayName: 'Python unit test'
+  inputs:
+    pythonroot: rsvpapp
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/coverage/coverage.xml'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage/coverage.xml'
     
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
