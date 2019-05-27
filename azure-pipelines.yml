@@ -29,13 +29,10 @@ steps:
     docker push $(dockerId).azurecr.io/$(dbimageName):$BUILD_BUILDNUMBER
     docker build -t $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER ./rsvpapp 
     docker push $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER
-
-    coverage xml -o ./coverage/coverage.xml rsvpapp/rsvp.py
-    coverage html -d ./coverage/htmlcov rsvpapp/rsvp.py
     #cp Dockerfile $(Build.ArtifactStagingDirectory)/
     mkdir $(Build.ArtifactStagingDirectory)/terraform
     cp ./terraform/* $(Build.ArtifactStagingDirectory)/terraform/
-    cp $(System.DefaultWorkingDirectory)/rsvpapp/ /tmp/rsvpapp
+    cp -R $(System.DefaultWorkingDirectory)/rsvpapp/ /tmp
     cd /tmp
     coverage xml -o $(System.DefaultWorkingDirectory)/coverage/coverage.xml rsvpapp/rsvp.py
     coverage html -d $(System.DefaultWorkingDirectory)/coverage/htmlcov rsvpapp/rsvp.py    
