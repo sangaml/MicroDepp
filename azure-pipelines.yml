@@ -32,10 +32,11 @@ steps:
     cp ./terraform/* $(Build.ArtifactStagingDirectory)/terraform/
   displayName: 'Build APP & DB containers and push to $(dockerId).azurecr.io'
 
-- task: dazfuller.pyunittest-task.pyunittest-task.Python Unit Test@0
-  displayName: 'Python unit test'
+- task: Python Unit Test@0
   inputs:
-    pythonroot: rsvpapp
+    pythonroot: 'rsvpapp'
+    coveragedir: 'coverage'
+    testfilepattern: 'test*.py'
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/coverage/coverage.xml'
