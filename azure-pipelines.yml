@@ -20,6 +20,7 @@ steps:
     whoami
     echo "which python"
     which python
+    ls -l /usr/local/bin
     az login --service-principal -u $(appid) -p $(secretkey) --tenant $(tenant)
     az acr login --name $(dockerId)
     docker build -t $(dockerId).azurecr.io/$(dbimageName):$BUILD_BUILDNUMBER ./mongo 
