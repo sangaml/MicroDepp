@@ -1,5 +1,14 @@
-# rsvpapp
-RSVP app by CloudYuga
+# MicroDepp
+This project is about end to end Deployment pipeline for Enterprise Multi Container MicroService on Multiple Environments.
 
-## Credits
-Thanks to [Anand Chitipothu](https://twitter.com/anandology) for helping us with the application development. 
+# Technologies used:
+  1. MicroService
+  2. Github
+  3. Azure DevOps
+  4. Azure
+  5. Openshift Online
+  6. Terraform
+  7. Kuberctl
+  8. AKS
+  9. Ansible Tower
+  10. REST APIs
