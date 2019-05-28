@@ -32,12 +32,6 @@ steps:
 
   displayName: 'Build APP & DB containers and push to $(dockerId).azurecr.io'
 
-#- task: Python Unit Test@0
-#  inputs:
-#    pythonroot: 'rsvpapp'
-#    coveragedir: 'coverage'
-#    testfilepattern: 'test*.py'
-
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/coverage/coverage.xml'
   inputs:
