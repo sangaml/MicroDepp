@@ -16,13 +16,6 @@ variables:
 
 steps:
 - script: |
-    echo "whoami"
-    whoami
-    echo "which python"
-    which python
-    echo "which coverage"
-    which coverage
-    ls -l /usr/local/bin
     az login --service-principal -u $(appid) -p $(secretkey) --tenant $(tenant)
     az acr login --name $(dockerId)
     docker build -t $(dockerId).azurecr.io/$(dbimageName):$BUILD_BUILDNUMBER ./mongo 
