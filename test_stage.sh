@@ -5,9 +5,9 @@ cd terraform
 
 terraform init
 
-terraform plan -var subscription_id="$(subscription_id)" -var client_id="$(client_id)" -var client_secret="$(client_secret)" -var tenant_id="$(tenant_id)" -var imageversion=$BUILD_BUILDNUMBER -var resource_group_name=$RELEASE_RELEASENAME
+terraform plan -var subscription_id="$subscription_id" -var client_id="$client_id" -var client_secret="$client_secret" -var tenant_id="$tenant_id" -var imageversion=$BUILD_BUILDNUMBER -var resource_group_name=$RELEASE_RELEASENAME
 
-yes yes | terraform apply -var subscription_id="$(subscription_id)" -var client_id="$(client_id)" -var client_secret="$(client_secret)" -var tenant_id="$(tenant_id)" -var imageversion=$BUILD_BUILDNUMBER -var resource_group_name=$RELEASE_RELEASENAME
+yes yes | terraform apply -var subscription_id="$subscription_id" -var client_id="$client_id" -var client_secret="$client_secret" -var tenant_id="$tenant_id" -var imageversion=$BUILD_BUILDNUMBER -var resource_group_name=$RELEASE_RELEASENAME
  
 kubectl --kubeconfig kubeconfig  create namespace rsvp
 
