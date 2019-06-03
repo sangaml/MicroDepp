@@ -24,6 +24,8 @@ steps:
     docker push $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER
     #cp Dockerfile $(Build.ArtifactStagingDirectory)/
     mkdir $(Build.ArtifactStagingDirectory)/terraform
+    echo "current build number is $BUILD_BUILDNUMBER" > version.txt
+    cp version.txt $(Build.ArtifactStagingDirectory)/
     cp test_stage.sh $(Build.ArtifactStagingDirectory)/
     cp dev_stage.sh $(Build.ArtifactStagingDirectory)/
     cp ./terraform/* $(Build.ArtifactStagingDirectory)/terraform/
