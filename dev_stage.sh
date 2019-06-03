@@ -3,7 +3,7 @@ appimageName=rsvp
 dbimageName=mongo
 projectname=microdepp
 
-cat version.txt
+cat _sangaml.MicroDepp/drop/version.txt
 oc login $osurl --token=$ostoken	
 # oc project $projectname
 oc tag $dockerId.azurecr.io/$dbimageName:$BUILD_BUILDNUMBER  $projectname/mongodb:latest 
