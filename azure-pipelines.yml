@@ -24,6 +24,8 @@ steps:
     docker push $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER
     #cp Dockerfile $(Build.ArtifactStagingDirectory)/
     mkdir $(Build.ArtifactStagingDirectory)/terraform
+    cp test_stage.sh $(Build.ArtifactStagingDirectory)/
+    cp dev_stage.sh $(Build.ArtifactStagingDirectory)/
     cp ./terraform/* $(Build.ArtifactStagingDirectory)/terraform/
     cp -R $(System.DefaultWorkingDirectory)/rsvpapp/ /tmp
     cd /tmp
