@@ -95,8 +95,7 @@ spec:
     spec: 
       containers:
       - name: rsvpd-db
-#        image: microdepp.azurecr.io/mongo:${var.imageversion}
-        image: microdepp.azurecr.io/mongo:${var.client_id}
+        image: microdepp.azurecr.io/mongo:${var.imageversion}
         env:
         - name: MONGODB_DATABASE
           value: rsvpdata
@@ -131,8 +130,7 @@ spec:
     spec:
       containers:
       - name: rsvp-app
-       # image: microdepp.azurecr.io/rsvp:${var.imageversion}
-        image: microdepp.azurecr.io/rsvp:${var.client_secret}
+        image: microdepp.azurecr.io/rsvp:${var.imageversion}
         env:
         - name: MONGODB_HOST
           value: mongodb
