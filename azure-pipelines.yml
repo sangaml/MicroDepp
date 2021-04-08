@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  name: 'sangampool'
+  name: 'sangaml'
 
 variables:
   dockerId: microdepp  # Replace with your Docker ID for Docker Hub or the admin user name for the Azure Container Registry
