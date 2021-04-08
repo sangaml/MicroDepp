@@ -6,8 +6,8 @@
 trigger:
 - master
 
-#pool:
-#  name: 'sangampool'
+pool:
+  name: 'sangampool'
 
 variables:
   dockerId: microdepp  # Replace with your Docker ID for Docker Hub or the admin user name for the Azure Container Registry
@@ -16,10 +16,14 @@ variables:
 
 steps:
 - script: |
+    # Connecting to the Azure portal
     az login --service-principal -u $(appid) -p $(secretkey) --tenant $(tenant)
+    # Connecting to the azure container registry
     az acr login --name $(dockerId)
+    # Building docker image for mongo DB
     docker build -t $(dockerId).azurecr.io/$(dbimageName):$BUILD_BUILDNUMBER ./mongo 
     docker push $(dockerId).azurecr.io/$(dbimageName):$BUILD_BUILDNUMBER
+    # Building and pusing app image
     docker build -t $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER ./rsvpapp 
     docker push $(dockerId).azurecr.io/$(imageName):$BUILD_BUILDNUMBER
     #cp Dockerfile $(Build.ArtifactStagingDirectory)/
