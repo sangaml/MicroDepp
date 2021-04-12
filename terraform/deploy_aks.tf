@@ -46,10 +46,10 @@ resource "azurerm_kubernetes_cluster" "myAKSCluster" {
   }
   depends_on = ["azurerm_resource_group.test"]
 }
-#resource "local_file" "kubeconfig" {
-#  content  = "${azurerm_kubernetes_cluster.myAKSCluster.kube_config_raw}"
-#  filename = "${path.module}/kubeconfig"
-#}
+resource "local_file" "kubeconfig" {
+  content  = "${azurerm_kubernetes_cluster.myAKSCluster.kube_config_raw}"
+  filename = "${path.module}/kubeconfig"
+}
 
 variable "client_id" {
 }
