@@ -1,4 +1,5 @@
 provider "azurerm" {
+  #version = "=1.37.0"
   # Whilst version is optional, we /strongly recommend/ using it to pin the version of the Provider being used
   features {}
   subscription_id = "${var.subscription_id}"
@@ -32,11 +33,12 @@ resource "azurerm_kubernetes_cluster" "myAKSCluster" {
       key_data = "${tls_private_key.aks-key.public_key_openssh}"
     }
   }
-  agent_pool_profile {
+  # agent_pool_profile
+  default_node_pool {
     name            = "agentpool"
-    count           = 1
-    vm_size         = "Standard_D1"
-    os_type         = "Linux"
+    node_count           = 1
+    vm_size         = "Standard_DS2_v2"
+    #os_type         = "Linux"
     os_disk_size_gb = 30
   }
 
