@@ -83,7 +83,7 @@ variable "imageversion" {
 resource "local_file" "deploy" {
   content = <<YAML
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rsvp-db
@@ -118,7 +118,7 @@ spec:
   selector:
     appdb: rsvpdb
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rsvp
