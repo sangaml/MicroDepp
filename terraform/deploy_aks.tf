@@ -40,18 +40,18 @@ terraform {
 }
 
 provider "azurerm" {
-  #version = "=1.37.0"
   # Whilst version is optional, we /strongly recommend/ using it to pin the version of the Provider being used
+  #version = "=1.37.0"
   features {}
-  subscription_id = "var.subscription_id"
-  client_id       = "var.client_id"
-  client_secret   = "var.client_secret"
-  tenant_id       = "var.tenant_id"
+  subscription_id = var.subscription_id
+  client_id       = var.client_id
+  client_secret   = var.client_secret
+  tenant_id       = var.tenant_id
 }
 
 resource "azurerm_resource_group" "test" {
-  name     = "var.resource_group_name"
-  location = "east US"
+  name     = var.resource_group_name
+  location = "eastus"
 }
 
 # Create AKS Cluster
@@ -62,35 +62,35 @@ resource "tls_private_key" "aks-key" {
 
 resource "azurerm_kubernetes_cluster" "myAKSCluster" {
   name                = "myaksCluster"
-  location            = "${var.resource_group_location}"
-  resource_group_name = "${var.resource_group_name}"
+  location            = var.resource_group_location
+  resource_group_name = var.resource_group_name
   dns_prefix          = "tppoCluster-dns"
-  kubernetes_version  = "${var.aks_k8s_version}"
+  kubernetes_version  = var.aks_k8s_version
 
   linux_profile {
     admin_username = "babauser"
 
     ssh_key {
-      key_data = "${tls_private_key.aks-key.public_key_openssh}"
+      key_data = "tls_private_key.aks-key.public_key_openssh"
     }
   }
-  # agent_pool_profile
+  # agent_pool_profile {
   default_node_pool {
     name            = "agentpool"
     node_count           = 1
-    vm_size         = "Standard_DS2_v2"
-    #os_type         = "Linux"
+    vm_size         = "standard_ds2_v2"
+    # ios_type         = "Linux"
     os_disk_size_gb = 30
   }
 
   service_principal {
-    client_id     = "${var.client_id}"
-    client_secret = "${var.client_secret}"
+    client_id     = var.client_id
+    client_secret = var.client_secret
   }
-  depends_on = ["azurerm_resource_group.test"]
+  depends_on = [azurerm_resource_group.test]
 }
 resource "local_file" "kubeconfig" {
-  content  = "${azurerm_kubernetes_cluster.myAKSCluster.kube_config_raw}"
+  content  = "azurerm_kubernetes_cluster.myAKSCluster.kube_config_raw"
   filename = "${path.module}/kubeconfig"
 }
 
