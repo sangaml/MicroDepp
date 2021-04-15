@@ -1,10 +1,10 @@
 cd _sangaml.MicroDepp/drop
 
 #az login --service-principal --username "$client_id" --password "$client_secret" --tenant "$tenant_id"
-export ARM_CLIENT_ID="$client_id"
-export ARM_CLIENT_SECRET="$client_secret"
-export ARM_SUBSCRIPTION_ID="$subscription_id"
-export ARM_TENANT_ID="$tenant_id"
+#export ARM_CLIENT_ID="$client_id"
+#export ARM_CLIENT_SECRET="$client_secret"
+#export ARM_SUBSCRIPTION_ID="$subscription_id"
+#export ARM_TENANT_ID="$tenant_id"
 cd terraform
 
 terraform init
