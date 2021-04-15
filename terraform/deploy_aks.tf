@@ -1,3 +1,35 @@
+variable "client_id" {
+}
+
+variable "client_secret" {
+}
+
+variable "subscription_id" {
+}
+
+variable "tenant_id" {
+}
+
+variable "nameregion" {
+  default = "east US"
+}
+variable "nameenvironment" {
+  default = "Dev"
+}
+variable "project" {
+  default = "TPPO"
+}
+variable "resource_group_location" {
+  default = "east US"
+}
+variable "resource_group_name" {
+}
+variable "aks_k8s_version" {
+  default = "1.18.14"
+}
+variable "imageversion" {
+}
+
 terraform {
   required_providers {
     azurerm = {
@@ -11,14 +43,14 @@ provider "azurerm" {
   #version = "=1.37.0"
   # Whilst version is optional, we /strongly recommend/ using it to pin the version of the Provider being used
   features {}
-#  subscription_id = "${var.subscription_id}"
-#  client_id       = "${var.client_id}"
-#  client_secret   = "${var.client_secret}"
-#  tenant_id       = "${var.tenant_id}"
+  subscription_id = "var.subscription_id"
+  client_id       = "var.client_id"
+  client_secret   = "var.client_secret"
+  tenant_id       = "var.tenant_id"
 }
 
 resource "azurerm_resource_group" "test" {
-  name     = "${var.resource_group_name}"
+  name     = "var.resource_group_name"
   location = "east US"
 }
 
@@ -62,30 +94,6 @@ resource "local_file" "kubeconfig" {
   filename = "${path.module}/kubeconfig"
 }
 
-variable "client_id" {
-}
-variable "client_secret" {
-}
-
-variable "nameregion" {
-  default = "West US"
-}
-variable "nameenvironment" {
-  default = "Dev"
-}
-variable "project" {
-  default = "TPPO"
-}
-variable "resource_group_location" {
-  default = "West US"
-}
-variable "resource_group_name" {
-}
-variable "aks_k8s_version" {
-  default = "1.18.14"
-}
-variable "imageversion" {
-}
 resource "local_file" "deploy" {
   content = <<YAML
 ---
