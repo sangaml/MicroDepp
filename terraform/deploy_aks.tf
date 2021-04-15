@@ -10,7 +10,7 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "test" {
   name     = "${var.resource_group_name}"
-  location = "West US"
+  location = "east US"
 }
 
 # Create AKS Cluster

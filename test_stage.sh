@@ -1,6 +1,6 @@
 cd _sangaml.MicroDepp/drop
 
-az login --service-principal --username "$client_id" --password "$client_secret" --tenant "$tenant_id"
+#az login --service-principal --username "$client_id" --password "$client_secret" --tenant "$tenant_id"
 
 cd terraform
 
