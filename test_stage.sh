@@ -7,11 +7,13 @@ cd _sangaml.MicroDepp/drop
 #export ARM_TENANT_ID="$tenant_id"
 cd terraform
 
+az account list
+
 terraform init
 
-terraform plan -var subscription_id="$subscription_id" -var tenant_id="$tenant_id" -var client_id="$client_id" -var client_secret="$client_secret" -var imageversion=$BUILD_BUILDNUMBER -var resource_group_name=$RELEASE_RELEASENAME
+terraform plan -var client_id="$client_id" -var client_secret="$client_secret" -var imageversion=$BUILD_BUILDNUMBER -var resource_group_name=$RELEASE_RELEASENAME
 
-yes yes | terraform apply -var subscription_id="$subscription_id" -var tenant_id="$tenant_id" -var client_id="$client_id" -var client_secret="$client_secret" -var imageversion=$BUILD_BUILDNUMBER -var resource_group_name=$RELEASE_RELEASENAME
+yes yes | terraform apply -var client_id="$client_id" -var client_secret="$client_secret" -var imageversion=$BUILD_BUILDNUMBER -var resource_group_name=$RELEASE_RELEASENAME
  
 kubectl --kubeconfig kubeconfig  create namespace rsvp
 
