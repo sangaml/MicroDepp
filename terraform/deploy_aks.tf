@@ -94,7 +94,7 @@ resource "azurerm_kubernetes_cluster" "rsvpapp" {
   depends_on = [azurerm_resource_group.test]
 }
 resource "local_file" "kubeconfig" {
-  content  = "azurerm_kubernetes_cluster.rsvpapp.kube_config_raw"
+  content  = azurerm_kubernetes_cluster.rsvpapp.kube_config_raw
   filename = "${path.module}/kubeconfig"
 }
 
