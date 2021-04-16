@@ -60,8 +60,8 @@ resource "tls_private_key" "aks-key" {
   rsa_bits  = 2048
 }
 
-resource "azurerm_kubernetes_cluster" "myAKSCluster" {
-  name                = "myaksCluster"
+resource "azurerm_kubernetes_cluster" "rsvpapp" {
+  name                = "rsvpapp"
   location            = var.resource_group_location
   resource_group_name = var.resource_group_name
   dns_prefix          = "tppoCluster-dns"
@@ -90,7 +90,7 @@ resource "azurerm_kubernetes_cluster" "myAKSCluster" {
   depends_on = [azurerm_resource_group.test]
 }
 resource "local_file" "kubeconfig" {
-  content  = "azurerm_kubernetes_cluster.myAKSCluster.kube_config_raw"
+  content  = "azurerm_kubernetes_cluster.rsvpapp.kube_config_raw"
   filename = "${path.module}/kubeconfig"
 }
 
