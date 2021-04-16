@@ -10,6 +10,10 @@ variable "subscription_id" {
 variable "tenant_id" {
 }
 
+variable "ssh_public_key" {
+    default = "~/.ssh/id_rsa.pub"
+}
+
 variable "nameregion" {
   default = "east US"
 }
@@ -71,7 +75,7 @@ resource "azurerm_kubernetes_cluster" "rsvpapp" {
     admin_username = "babauser"
 
     ssh_key {
-      key_data = "tls_private_key.aks-key.public_key_pem"
+      key_data = file(var.ssh_public_key)
     }
   }
   # agent_pool_profile {
