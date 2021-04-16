@@ -70,9 +70,9 @@ resource "azurerm_kubernetes_cluster" "rsvpapp" {
   linux_profile {
     admin_username = "babauser"
 
-    #ssh_key {
-    #  key_data = "tls_private_key.aks-key.public_key_openssh"
-    #}
+    ssh_key {
+      key_data = "tls_private_key.aks-key.public_key_pem"
+    }
   }
   # agent_pool_profile {
   default_node_pool {
