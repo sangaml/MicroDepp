@@ -47,7 +47,7 @@ kubectl --kubeconfig kubeconfig  create namespace rsvp
 
 kubectl --kubeconfig kubeconfig  apply -f deploy.yaml
 
-while  [ "$(kubectl --kubeconfig kubeconfig  get po  --selector=app=rsvp -n rsvp -o json | jq ' .items[0].status.containerStatuses[0].ready')" != "true" ]; do sleep 10; done
+while  [ "$(kubectl --kubeconfig kubeconfig  get po  --selector=app=rsvp-app -n rsvp -o json | jq ' .items[0].status.containerStatuses[0].ready')" != "true" ]; do sleep 10; done
 
 while  [ "$(kubectl --kubeconfig kubeconfig  get po  --selector=appdb=rsvpdb -n rsvp -o json | jq ' .items[0].status.containerStatuses[0].ready')" != "true" ]; do sleep 10; done
 

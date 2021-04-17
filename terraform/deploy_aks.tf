@@ -75,7 +75,7 @@ resource "azurerm_kubernetes_cluster" "rsvpapp" {
     admin_username = "babauser"
 
     ssh_key {
-      key_data = file(var.ssh_public_key)
+      key_data = azurerm_kubernetes_cluster.rsvpapp.public_key_openssh
     }
   }
   # agent_pool_profile {
@@ -120,7 +120,7 @@ spec:
     spec:
       containers:
       - name: rsvpdb
-        image: microdepp.azurecr.io/mongo:${var.imageversion}
+        image: aksprodacrytr.azurecr.io/mongo:${var.imageversion}
         env:
         - name: MONGODB_DATABASE
           value: rsvpdata
@@ -160,7 +160,7 @@ spec:
     spec:
       containers:
       - name: rsvp-app
-        image: microdepp.azurecr.io/rsvp:${var.imageversion}
+        image: aksprodacrytr.azurecr.io/rsvp:${var.imageversion}
         env:
         - name: MONGODB_HOST
           value: mongodb
