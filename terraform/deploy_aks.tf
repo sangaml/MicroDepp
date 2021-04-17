@@ -59,7 +59,7 @@ resource "azurerm_resource_group" "test" {
 }
 
 # Create AKS Cluster
-resource "tls_private_key" "aks-key" {
+resource "tls_private_key" "akskey" {
   algorithm   = "RSA"
   rsa_bits  = 2048
 }
@@ -75,7 +75,7 @@ resource "azurerm_kubernetes_cluster" "rsvpapp" {
     admin_username = "babauser"
 
     ssh_key {
-      key_data = azurerm_kubernetes_cluster.rsvpapp.public_key_openssh
+      key_data = azurerm_kubernetes_cluster.akskey.public_key_openssh
     }
   }
   # agent_pool_profile {
