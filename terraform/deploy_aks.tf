@@ -75,7 +75,7 @@ resource "azurerm_kubernetes_cluster" "rsvpapp" {
     admin_username = "babauser"
 
     ssh_key {
-      key_data = azurerm_kubernetes_cluster.akskey.public_key_openssh
+      key_data = tls_private_key.akskey.public_key_openssh
     }
   }
   # agent_pool_profile {
