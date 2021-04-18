@@ -3,16 +3,16 @@
   connection: local
   gather_facts: no
   vars:
-    access_token: "{{ ansible_env.access_token }}"
-    account_name: "{{ ansible_env.account_name }}"
-    repo_name: "{{ ansible_env.repo_name }}"
-    account_mailid: "{{ ansible_env.account_mailid }}"
-    filepath: "{{ ansible_env.filepath }}"
-    servicePrincipalId: "{{ ansible_env.servicePrincipalId }}"
-    spkey: "{{ ansible_env.spkey }}"
-    hostSubscriptionId: "{{ ansible_env.hostSubscriptionId }}"
-    tenantid: "{{ ansible_env.tenantid }}" 
-    resourcesgpname: "{{ ansible_env.resourcesgpname }}"
+  #  access_token: "{{ ansible_env.access_token }}"
+  #  account_name: "{{ ansible_env.account_name }}"
+  #  repo_name: "{{ ansible_env.repo_name }}"
+  #  account_mailid: "{{ ansible_env.account_mailid }}"
+  #  filepath: "{{ ansible_env.filepath }}"
+    servicePrincipalId: "{{ ansible_env.client_id }}"
+    spkey: "{{ ansible_env.client_secret }}"
+    hostSubscriptionId: "{{ ansible_env.subscription_id }}"
+    tenantid: "{{ ansible_env.tenant_id }}" 
+    resourcesgpname: "{{ ansible_env.RELEASE_RELEASENAME }}"
   tasks:
     - name: Delete a resource group
       azure_rm_resourcegroup:
