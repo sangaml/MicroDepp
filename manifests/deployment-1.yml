@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "rsvpapp-8630"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "rsvpapp-8630"
+  template:
+    metadata:
+      labels:
+        app: "rsvpapp-8630"
+    spec:
+      containers:
+        - name: "rsvpapp-8630"
+          image: "aksprodacrytr.azurecr.io/rsvpapp"
+          ports:
+          - containerPort: 80
