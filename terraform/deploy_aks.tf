@@ -29,7 +29,7 @@ variable "resource_group_location" {
 variable "resource_group_name" {
 }
 variable "aks_k8s_version" {
-  default = "1.18.14"
+  default = "1.19.11"
 }
 variable "imageversion" {
 }
